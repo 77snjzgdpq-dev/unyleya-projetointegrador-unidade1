@@ -2,6 +2,7 @@
 import Details from "./pages/details";
 import Home from "./pages/home";
 import ListProducts from "./pages/list-products";
+import Login from "./pages/login";
 import NotFound from "./pages/not-found";
 import QuemSomos from "./pages/quemsomos";
 import SearchProducts from "./pages/search-result";
@@ -39,6 +40,10 @@ export default function App() {
     {
       path: "/quemsomos",
       element: <QuemSomos />
+    },
+    {
+      path: "/login",
+      element: <Login />
     },
   ]);
 
