@@ -37,11 +37,13 @@ export default function Register() {
 
   return (
     <AuthTemplate>
-      <form
+      <form 
         className="bg-white shadow-md p-6 rounded-lg w-[400px] space-y-3 self-center"
         onSubmit={handleSubmit(createUser)}
       >
-        <h1 className="text-center text-2xl font-bold">Unybay</h1>
+        <button onClick={() => navigate("/")}>
+          <h1 className="text-center text-2xl font-bold">Unybay</h1>
+        </button>
         <p className="text-center text-gray-600">Cadastre-se</p>
 
         <input {...register("name")} placeholder="Nome" className="input" />
