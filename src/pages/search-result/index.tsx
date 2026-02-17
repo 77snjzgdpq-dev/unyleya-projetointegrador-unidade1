@@ -3,7 +3,7 @@ import UserTemplate from "../../templates/user-template";
 
 export default function SearchProducts() {
     return(
-        <UserTemplate title="">
+        <UserTemplate title="Busca">
             <h1>Resultado da busca</h1>
 
             <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">

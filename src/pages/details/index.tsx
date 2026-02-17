@@ -1,11 +1,11 @@
 import UserTemplate from "../../templates/user-template";
-
 import carousel1 from "../../assets/carrosel1.png";
 import { Carousel } from "react-responsive-carousel";
 
 export default function Details () {
+    
     return(
-        <UserTemplate title="">
+        <UserTemplate title="Detalhes">
             <p className="text-[30px]">Echo dot (8º geração)</p>
             <div className="flex mt-10 gap-10 justify-center"> 
                 <div className="w-[40%]">
