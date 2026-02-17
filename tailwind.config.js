@@ -5,9 +5,12 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
-        primary: "#0060B1",
-        secondary: "#FF6508",
+      colors: {
+        primary: "#0B5ED7",
+        secondary: "#084298",
+        background: "#F8F9FA",
+        text: "#212529",
+        graySoft: "#DEE2E6",
       },
       fontFamily:{
         ubuntu: ["ubuntu","sans-serif"]

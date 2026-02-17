@@ -1,59 +1,71 @@
-import { useForm } from "react-hook-form"
-import AuthTemplate from "../../templates/auth-template"
-import * as Yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"    
-import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form";
+import AuthTemplate from "../../templates/auth-template";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 type LoginForm = {
-    email: string;
-    password: string;
-}
+  email: string;
+  password: string;
+};
 
 const schemaValidation = Yup.object().shape({
-    email: Yup.string().email("digite um e-mail válido").required("campo obrigatório"),
-    password: Yup.string().min(4, "a senha precisa ter 4 caracteres").required("campo obrigatório")
+  email: Yup.string().email("Digite um e-mail válido").required("Campo obrigatório"),
+  password: Yup.string().min(4, "Mínimo 4 caracteres").required("Campo obrigatório"),
 });
 
-
 export default function Login() {
-    
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const {
-            register, 
-            handleSubmit, 
-            formState: {errors}
-         } 
-         = useForm<LoginForm>({resolver: yupResolver(schemaValidation)})
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({ resolver: yupResolver(schemaValidation) });
 
-    function logar(values: LoginForm){
-        console.log(values);
-    }
-    
-    
-    return(
-        <AuthTemplate>
-            <form className="bg-gray-400 p-5 rounded-lg w-[400px] self-center" onSubmit={handleSubmit(logar)}>
-                <h1 className="text-center text-[25px] font-bold">Unybay</h1>
-                
-                <p className="text-center my-3">Acesse sua conta</p>
+  function logar(values: LoginForm) {
+    console.log(values);
+  }
 
-                <div>
-                    <input {...register("email") } className=" rounded-md h-[40px] p-2 w-full border-2" placeholder="Digite seu e-mail"/>
-                    {errors.email && <span className="text-red-700">{errors.email.message}</span>}
-                </div>
-                
-                <div>
-                    <input {...register("password")} className="rounded-md h-[40px] p-2 w-full border-2 mt-3" placeholder="Digite sua senha"/>
-                    {errors.password && <span className="text-red-700">{errors.password.message}</span>}
-                </div>
-                <div>
-                    <button type="submit" className="bg-primary mt-3 w-full h-[40px] text-white">Entrar</button>
-                    <div className="flex justify-center items-center mt-2">
-                        <button onClick={() => navigate("/register")}>Cadastre-se</button>
-                    </div>
-                </div>
-            </form>
-        </AuthTemplate>
-    )
+  return (
+    <AuthTemplate>
+      <form
+        className="bg-white self-center shadow-md p-6 rounded-lg w-[400px] space-y-3"
+        onSubmit={handleSubmit(logar)}
+      >
+        <h1 className="text-center text-2xl font-bold">Unybay</h1>
+        <p className="text-center text-gray-600">Acesse sua conta</p>
+
+        <input
+          {...register("email")}
+          placeholder="E-mail"
+          className="w-full border rounded p-2"
+        />
+        {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
+
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="Senha"
+          className="w-full border rounded p-2"
+        />
+        {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
+
+        <button
+          type="submit"
+          className="bg-blue-600 w-full py-2 text-white rounded hover:bg-blue-700 transition"
+        >
+          Entrar
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/register")}
+          className="w-full text-blue-600 hover:underline"
+        >
+          Cadastre-se
+        </button>
+      </form>
+    </AuthTemplate>
+  );
 }

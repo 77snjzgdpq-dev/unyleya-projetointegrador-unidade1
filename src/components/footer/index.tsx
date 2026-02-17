@@ -1,23 +1,21 @@
 import { BsFacebook, BsLinkedin } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-export default function Footer() {
-
+ export default function Footer() {
   return (
-    <footer className="bg-primary text-white py-10 px-10">
-      
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[20px] font-bold">Unyban</h2>
+    <footer className="bg-blue-700 text-white py-6 px-10">
+      <div className="flex justify-between items-center">
+
+        <h1 className="font-bold text-lg">Unybay</h1>
 
         <Link 
-          to="/fale-conosco" 
-          className="hover:underline font-semibold"
-        >
+              to="/fale-conosco"
+              className="border border-white px-4 py-2 rounded hover:bg-white hover:text-blue-700 transition">
           Fale Conosco
         </Link>
       </div>
 
-      <p className="text-center">
+      <p className="text-center mt-4 text-sm">
         Unyleya Educacional | Todos os direitos reservados
       </p>
 

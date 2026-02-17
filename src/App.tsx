@@ -58,6 +58,10 @@ export default function App() {
       path: "/my-products",
       element: <UserProduct />
     },
+    {
+      path: "/list-products",
+      element: <ListProducts />
+    },
      {
       path: "/form-products",
       element: <FormProduct />

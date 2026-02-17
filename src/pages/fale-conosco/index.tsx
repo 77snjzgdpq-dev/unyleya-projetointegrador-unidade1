@@ -32,55 +32,52 @@ export default function FaleConosco() {
         = useForm<ContactForm>({resolver: yupResolver(schemaValidation)})
 
   return (
-    <div> 
-      <UserTemplate title="Fale Conosco">
-        <div className="flex justify-center items-center mt-10">
-          <form 
-            onSubmit={handleSubmit(enviarMensagem)} 
-            className="bg-gray-400 p-5 rounded-lg w-[400px] self-center"
-          >
-            <h1 className="text-center text-[25px] font-bold text-primary mb-2">
-              Unybay
-            </h1>
-            <p className="text-center mb-5">
-              Fale Conosco através do formulário abaixo
-            </p>
+    <UserTemplate title="Fale Conosco">
+       <div className="flex justify-center">
+        <form 
+              onSubmit={handleSubmit(enviarMensagem)} 
+              className="bg-white shadow-md rounded-lg p-6 w-full max-w-md space-y-4">
 
-            <div className="mb-3">
-              <input
-                {...register("name", { required: true })}
-                placeholder="Nome completo"
-                className="w-full border-2 rounded-md h-[40px] p-2"
-              />
-              {errors.name && <span className="text-red-600">Nome obrigatório</span>}
-            </div>
+          <h1 className="text-center text-[25px] font-bold text-primary mb-2">Unybay</h1>
 
-            <div className="mb-3">
-              <input
-                {...register("email", { required: true })}
-                placeholder="E-mail"
-                className="w-full border-2 rounded-md h-[40px] p-2"
-              />
-              {errors.email && <span className="text-red-600">E-mail obrigatório</span>}
-            </div>
+          <p className="text-center text-gray-600 mb-4">
+            Fale Conosco através do formulário abaixo
+          </p>
 
-            <div className="mb-4">
-              <textarea
-                {...register("message", { required: true })}
-                placeholder="Escreva sua mensagem..."
-                className="w-full border-2 rounded-md p-2 h-[120px]"
-              />
-              {errors.message && <span className="text-red-600">Mensagem obrigatória</span>}
-            </div>
+          <div className="mb-3">
+            <input
+              {...register("name", { required: true })}
+              placeholder="Nome completo"
+              className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.name && <span className="text-red-600">Nome obrigatório</span>}
+          </div>
 
-            <button 
-                    type="submit"
-                    className="bg-primary text-white w-full h-[40px] rounded-md hover:bg-blue-700">
-              Enviar
-            </button>
-          </form>
-        </div>
-      </UserTemplate>
-    </div>
+          <div className="mb-3">
+            <input
+              {...register("email", { required: true })}
+              placeholder="E-mail"
+              className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.email && <span className="text-red-600">E-mail obrigatório</span>}
+          </div>
+
+          <div className="mb-4">
+            <textarea
+              {...register("message", { required: true })}
+              placeholder="Escreva sua mensagem..."
+              className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.message && <span className="text-red-600">Mensagem obrigatória</span>}
+          </div>
+
+          <button 
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </UserTemplate>
   );
 }
