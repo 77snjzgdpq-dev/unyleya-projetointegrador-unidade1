@@ -5,7 +5,7 @@ export default function HeaderAdmin() {
     return(
         <div className="bg-primary flex justify-between items-center p-2">
             <button onClick={() => navigate("/")}>
-                <h1 className="text-white text-[30px] font-bold">Unyban</h1>
+                <h1 className="text-white text-[30px] font-bold">Unybay</h1>
             </button>
             <ul className="flex gap-5 items-center text-white">
                 <li>
