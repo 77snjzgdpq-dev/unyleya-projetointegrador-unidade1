@@ -28,7 +28,7 @@ export default function App() {
       element: <ListRecentsProducts />
     },
      {
-      path: "/products/details",
+      path: "/products/details/:id",
       element: <Details />
     },
      {

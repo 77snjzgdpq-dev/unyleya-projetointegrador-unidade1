@@ -127,6 +127,7 @@ export default function Home() {
            <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">
                 {recentsProducts.map((product) => (
                     <CardProduct    key={product._id}
+                                    id={product._id}
                                     name={product.name} 
                                     price={product.price} 
                                     manufacturer={product.manufacturer}  
@@ -156,6 +157,7 @@ export default function Home() {
             <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">
                 {recommendedProducts.map((product) => (
                     <CardProduct key={product._id}
+                                 id={product._id}
                                  name={product.name} 
                                  price={product.price} 
                                  manufacturer={product.manufacturer}  

@@ -1,23 +1,44 @@
 import UserTemplate from "../../templates/user-template";
 import carousel1 from "../../assets/carrosel1.png";
 import { Carousel } from "react-responsive-carousel";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getApiDetailsProduct } from "./services";
+import type { Product } from "./types";
+
 
 export default function Details () {
+    const parms = useParams();
+    const id = parms?.id;
+
+    const [product, setProduct] = useState<Product>({} as Product) ;
     
+    async function getDetailsProduct() {
+        try {
+            const response = await getApiDetailsProduct(id ?? "");
+            setProduct(response.data);
+            console.log(response.data);
+
+        } catch (error) {
+            alert("Houve um erro ao tentar buscar todos os produtos")
+        }
+    }
+      
+    useEffect(() => {
+        getDetailsProduct();
+    },[])
+
     return(
         <UserTemplate title="Detalhes">
-            <p className="text-[30px]">Echo dot (8º geração)</p>
+            <p className="text-[30px]">{product.name}</p>
             <div className="flex mt-10 gap-10 justify-center"> 
                 <div className="w-[40%]">
                     <Carousel showThumbs={false} >
                         <div>
-                            <img src={carousel1} />
+                            <img src={product.url1} />
                         </div>
                         <div>
-                            <img src={carousel1} />
-                        </div>
-                        <div>
-                            <img src={carousel1} />
+                            <img src={product.url2} />
                         </div>
                     </Carousel>
                 </div>
@@ -30,20 +51,14 @@ export default function Details () {
                         <p>11 9 9999-9999</p>
                     </div>
                     <div className="shadow-sm bg-white px-10 py-2">
-                        <p className="text-[30px]">R$ 799,00</p>
+                        <p className="text-[30px]">R$ {product.price}</p>
                     </div>
                 </div>
             </div>
             
             <h3 className="mt-10 text-[20px]">Detelhes do produto</h3>
             
-            <div className="mt-3">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-                </p>
-                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-                </p>
+            <div className="mt-3" dangerouslySetInnerHTML={{__html: product.description}}>
             </div>
         </UserTemplate>
     )

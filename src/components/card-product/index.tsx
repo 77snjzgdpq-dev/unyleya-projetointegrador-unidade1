@@ -7,7 +7,7 @@ export default function CardProduct(props: CardProps) {
     const navigate = useNavigate();
 
     return(
-        <button onClick={()=>navigate("/products/details")} 
+        <button onClick={()=>navigate(`/products/details/${props.id}`)} 
                 className="shadow-md rounded-md p-10 flex flex-col justify-center">
 
             <h1 className="font-semibold text-sm">{props.name}</h1>

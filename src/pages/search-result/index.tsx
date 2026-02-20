@@ -36,6 +36,7 @@ export default function SearchProducts() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {allProducts.map((product) => (
           <CardProduct  key={product._id}
+                        id={product._id}
                         name={product.name} 
                         price={product.price} 
                         manufacturer={product.manufacturer}  
