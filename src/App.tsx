@@ -2,7 +2,6 @@
 import Dashboard from "./pages/dashboard";
 import Details from "./pages/details";
 import Home from "./pages/home";
-import ListProducts from "./pages/list-products";
 import Login from "./pages/login";
 import NotFound from "./pages/not-found";
 import QuemSomos from "./pages/quemsomos";
@@ -14,6 +13,8 @@ import UserProduct from "./pages/user-product";
 import FormProduct from "./pages/form-product";
 import FaleConosco from "./pages/fale-conosco";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ListRecentsProducts from "./pages/list-recents-products";
+import ListAllProducts from "./pages/list-all-products";
 
 export default function App() {
 
@@ -23,15 +24,15 @@ export default function App() {
       element: <Home />
     },
     {
-      path: "/products",
-      element: <ListProducts />
+      path: "/all-recents-products",
+      element: <ListRecentsProducts />
     },
      {
       path: "/products/details",
       element: <Details />
     },
      {
-      path: "/products/search",
+      path: "/products/search/:product",
       element: <SearchProducts />
     },
     {
@@ -59,8 +60,8 @@ export default function App() {
       element: <UserProduct />
     },
     {
-      path: "/list-products",
-      element: <ListProducts />
+      path: "/list-recents-products",
+      element: <ListRecentsProducts />
     },
      {
       path: "/form-products",
@@ -70,6 +71,11 @@ export default function App() {
       path: "/fale-conosco",
       element: <FaleConosco />
     },
+    {
+      path: "/list-all-products",
+      element: <ListAllProducts />
+    },
+    
   ]);
 
   return (

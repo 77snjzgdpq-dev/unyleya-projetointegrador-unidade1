@@ -1,8 +1,8 @@
 
 import { useNavigate } from "react-router-dom"
-import img_product from "../../assets/product.png"
+import type { CardProps } from "./types";
 
-export default function CardProduct() {
+export default function CardProduct(props: CardProps) {
     
     const navigate = useNavigate();
 
@@ -11,13 +11,13 @@ export default function CardProduct() {
                 onClick={()=>navigate("/products/details")} 
                 className="shadow-md rounded-md p-10 flex flex-col justify-center">
 
-            <h1 className="font-semibold text-sm">Nome do Produto</h1>
+            <h1 className="font-semibold text-sm">{props.name}</h1>
             
-            <img src={img_product} className="w-[100px] mt-2"/>
+            <img src={props.img} className="w-[100px] mt-2"/>
             
-            <p className=" w-full mt-3">Amazon</p>
+            <p className=" w-full mt-3">{props.manufacturer}</p>
             
-            <p className="text-gray-600 text-sm">R$ 799,99</p>
+            <p className="text-gray-600 text-sm">R$ {props.price}</p>
 
         </button>
     )

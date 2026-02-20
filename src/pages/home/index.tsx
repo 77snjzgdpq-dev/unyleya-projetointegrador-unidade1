@@ -9,7 +9,12 @@ import { AiOutlineGift } from "react-icons/ai";
 import { AiOutlineSync } from "react-icons/ai";
 import { Carousel } from 'react-responsive-carousel';
 import carrosel1 from "../../assets/carrosel1.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getApiRecentesProducts, getApiRecomendadosProducts } from "./services";
+import { useEffect, useState } from "react";
+import type { Product } from "./types";
+import ListLoading from "../../components/list-loading";
+import SearchBar from "../../components/search-bar";
 
 const itemsCategory = [
     {
@@ -53,45 +58,92 @@ export default function Home() {
 
     const navigate = useNavigate();
 
+    const [recentsProducts, setRecentsProducts] = useState<Product[]>([]) ;
+    const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]) ;
+    const [isLoadingRecentsProducts, setIsLoadingRecentsProducts] = useState(false) ;
+    const [isLoadingRecommendedProducts, setIsLoadingRecommendedProducts] = useState(false) ;
+    const [inputSearch, setInputSearch] = useState("") ;
+
+    async function getRecentsProducts() {
+        setIsLoadingRecentsProducts(true);
+        try {
+           const response = await getApiRecentesProducts();
+           setRecentsProducts(response.data);
+
+        } catch (error) {
+            alert("Houve um erro ao tentar buscar produtos")
+        }
+        setIsLoadingRecentsProducts(false);
+    }
+
+     async function getRecommendedProducts() {
+        setIsLoadingRecommendedProducts(true);
+        try {
+           const response = await getApiRecomendadosProducts();
+           setRecommendedProducts(response.data);
+
+        } catch (error) {
+            alert("Houve um erro ao tentar buscar produtos recomendados")
+        }
+        setIsLoadingRecommendedProducts(false);
+    }
+
+    useEffect(() => {
+        getRecentsProducts();
+    },[])
+
+    useEffect(() => {
+        getRecommendedProducts();
+    },[])
+
+
     return(
         <UserTemplate title="Home" >
-
-            <div className="max-w-[70%] self-center">
-                <Carousel showThumbs={false} >
-                    <div>
-                        <img src={carrosel1} />
-                    </div>
-                    <div>
-                        <img src={carrosel1} />
-                    </div>
-                    <div>
-                        <img src={carrosel1} />
-                    </div>
-                </Carousel>
-                <div className="flex flex-row h-[45px] rounded-md border-2 items-center mt-10 ">
-                    <input className="flex-1 h-full p-3" placeholder="Estou buscando por..."/>
-                    <button onClick={() => navigate("products/search")} className="p-4">
-                        <IoSearch  size={30}/>
-                    </button>
-                    
+            <div className="w-full flex flex-col items-center gap-6">
+                <div className="w-full max-w-5xl">
+                    <Carousel showThumbs={false} >
+                        <div>
+                            <img src={carrosel1} />
+                        </div>
+                        <div>
+                            <img src={carrosel1} />
+                        </div>
+                        <div>
+                            <img src={carrosel1} />
+                        </div>
+                    </Carousel>
+                </div>    
+                <div className="w-full max-w-4xl">
+                    <SearchBar  value={inputSearch}
+                                onChange={setInputSearch}
+                                onSearch={() => navigate(`products/search/${inputSearch}`)}/>
                 </div>
             </div>
 
            <h2 className="mt-[50px]">Itens recentes</h2>
+           
+           {isLoadingRecentsProducts && <ListLoading /> }
+
            <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">
-                {Array.from({length: 8}).map(() => (
-                    <CardProduct />
+                {recentsProducts.map((product) => (
+                    <CardProduct    key={product._id}
+                                    name={product.name} 
+                                    price={product.price} 
+                                    manufacturer={product.manufacturer}  
+                                    img={product.url1} />
                 ))}
             </div>
-            <p className="mt-4">
-                ver mais
-            </p>
+            <Link to="/all-recents-products">
+                <p className="mt-4">ver todos o produtos recentes</p>
+            </Link>
             
             <div className="bg-primary p-10 rounded-lg mt-[50px]">
                 <h2 className="text-white text-[30px] mb-5">Categorias</h2>
                 <div className="flex justify-between p-[20px]">
                     {itemsCategory.map((category) => (
-                        <button onClick={() => navigate("products/search")} className="flex flex-col justify-center items-center">
+                        <button key={category.Id} 
+                                onClick={() => navigate("products/search")} 
+                                className="flex flex-col justify-center items-center">
                             <div className="bg-white w-[80px] h-[80px] rounded-full flex justify-center items-center">{category.icon}</div>
                             <span className="text-white mt-2">{category.title}</span>
                         </button>
@@ -100,14 +152,21 @@ export default function Home() {
             </div>
 
             <h2 className="mt-[50px]">Anúncios</h2>
+            {isLoadingRecommendedProducts && <ListLoading /> }
             <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">
-                {Array.from({length: 8}).map(() => (
-                    <CardProduct />
+                {recommendedProducts.map((product) => (
+                    <CardProduct 
+                                    key={product._id}
+                                    name={product.name} 
+                                    price={product.price} 
+                                    manufacturer={product.manufacturer}  
+                                    img={product.url1}
+                    />
                 ))}
             </div>
-            <p className="mt-[50px]">
-                ver mais
-            </p>
+            <Link to="/list-all-products">
+                <p className="mt-[50px]">ver todos os produtos</p>
+            </Link>
         </UserTemplate>
     )
 }

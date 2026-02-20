@@ -1,12 +1,19 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import type { PropsWithChildren } from "react";
+import { useEffect, type PropsWithChildren } from "react";
+import { useLocation } from "react-router-dom"
 
 type UserTemplateProps = PropsWithChildren & {
   title: string;
 };
 
 export default function UserTemplate({ title, children }: UserTemplateProps) {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0,0);
+  },[pathname]);
+  
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
 
