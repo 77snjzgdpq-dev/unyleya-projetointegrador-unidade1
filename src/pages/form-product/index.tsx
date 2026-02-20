@@ -1,7 +1,6 @@
 import AuthTemplate from "../../templates/auth-template";
 import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"    
-import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -15,7 +14,6 @@ type FormProduct = {
     url1: string;
     url2: string;
 }
-
 
 const schemaValidation = Yup.object().shape({
     name:  Yup.string().required("campo obrigatório"),
@@ -34,8 +32,6 @@ export default function FormProduct() {
     
     const [value, setValue] = useState('');
 
-    const navigate = useNavigate()
-    
     const{
             register, 
             handleSubmit, 
@@ -70,11 +66,6 @@ export default function FormProduct() {
                                 <option value={"Veiculos"}>Veículos</option>
                             </select>
                             {errors.category && <span className="text-red-700">{errors.category.message}</span>}
-                            
-                            {/* <div className="flex-1">
-                                <input {...register("category") } className="mt-2 rounded-md h-[40px] p-2 w-full border-2" placeholder="Digite a categoria"/>
-                                {errors.category && <span className="text-red-700">{errors.category.message}</span>}
-                            </div> */}
                         </div>
                         <div className="flex-1">
                             <input {...register("price") } className="mt-2 rounded-md h-[40px] p-2 w-full border-2" placeholder="Digite o preço"/>
@@ -91,20 +82,17 @@ export default function FormProduct() {
                             {errors.url2 && <span className="text-red-700">{errors.url2.message}</span>}
                         </div>
                     </div>
-                    <ReactQuill 
-                                className="mt-2" 
+                    <ReactQuill className="mt-2" 
                                 style={{height:500, marginTop:10, marginBottom:100}} 
                                 theme="snow" 
                                 value={value} 
                                 onChange={setValue} />
 
                     <div className="flex justify-end gap-4 mt-4">
-                        <button 
-                                className="bg-primary text-white px-8 py-2 rounded-lg">
+                        <button className="bg-primary text-white px-8 py-2 rounded-lg">
                             Sim
                         </button>
-                        <button 
-                                onClick={() => alert("oi")} 
+                        <button onClick={() => alert("oi")} 
                                 className="bg-white text-primary border border-primary px-8 py-2 rounded-lg">
                             Não
                         </button>

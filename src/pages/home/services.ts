@@ -6,7 +6,6 @@ export async function getApiRecentesProducts() : Promise<AxiosResponse<Product[]
     return await api.get("/products/recents")
 }
 
-
 export async function getApiRecomendadosProducts() : Promise<AxiosResponse<Product[], any>> {
     return await api.get("/products/recommended")
 }

@@ -30,13 +30,11 @@ export default function ListRecentsProducts() {
             {isLoadingRecentsProducts && <ListLoading /> }
             <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2">
                {recentsAllProducts.map((product) => (
-                    <CardProduct 
-                                    key={product._id}
-                                    name={product.name} 
-                                    price={product.price} 
-                                    manufacturer={product.manufacturer}  
-                                    img={product.url1}
-                                    />
+                    <CardProduct key={product._id}
+                                 name={product.name} 
+                                 price={product.price} 
+                                 manufacturer={product.manufacturer}  
+                                 img={product.url1}/>
                 ))}
             </div>
         </UserTemplate>

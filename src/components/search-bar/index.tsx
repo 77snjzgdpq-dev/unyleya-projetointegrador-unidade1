@@ -9,12 +9,12 @@ type SearchBarProps = {
 };
 
 export default function SearchBar({
-  value,
-  onChange,
-  onSearch,
-  placeholder = "Estou buscando por...",
-  width = "w-full",
-}: SearchBarProps) {
+                                    value,
+                                    onChange,
+                                    onSearch,
+                                    placeholder = "Estou buscando por...",
+                                    width = "w-full",
+                                  }: SearchBarProps) {
   return (
     <div className={`flex flex-row h-[45px] rounded-md border-2 items-center ${width}`}>
       <input

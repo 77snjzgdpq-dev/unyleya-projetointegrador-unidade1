@@ -42,11 +42,9 @@ export default function SearchProducts() {
                         img={product.url1} />
         ))}
       </div>
-
       <p className="text-right mt-4 text-gray-600">
         Total: {allProducts.length} itens
       </p>
-
     </UserTemplate>
   );
 }

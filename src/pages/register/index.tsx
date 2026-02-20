@@ -37,10 +37,9 @@ export default function Register() {
 
   return (
     <AuthTemplate>
-      <form 
-        className="bg-white shadow-md p-6 rounded-lg w-[400px] space-y-3 self-center"
-        onSubmit={handleSubmit(createUser)}
-      >
+      <form className="bg-white shadow-md p-6 rounded-lg w-[400px] space-y-3 self-center"
+            onSubmit={handleSubmit(createUser)}>
+              
         <button onClick={() => navigate("/")}>
           <h1 className="text-center text-2xl font-bold">Unybay</h1>
         </button>
@@ -61,23 +60,20 @@ export default function Register() {
         <input {...register("state")} placeholder="Estado" className="input" />
         {errors.state && <span className="text-red-600 text-sm">{errors.state.message}</span>}
 
-        <input
-          {...register("password")}
-          type="password"
-          placeholder="Senha"
-          className="input"
-        />
+        <input  {...register("password")}
+                type="password"
+                placeholder="Senha"
+                className="input"/>
+
         {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
 
         <button className="bg-blue-600 w-full py-2 text-white rounded hover:bg-blue-700 transition">
           Cadastrar
         </button>
 
-        <button
-          type="button"
-          onClick={() => navigate("/login")}
-          className="w-full text-blue-600 hover:underline"
-        >
+        <button type="button"
+                onClick={() => navigate("/login")}
+                className="w-full text-blue-600 hover:underline">
           Já tenho conta
         </button>
       </form>

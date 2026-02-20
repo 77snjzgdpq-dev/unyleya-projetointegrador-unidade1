@@ -18,8 +18,7 @@ export default function HeaderAdmin() {
                     <button onClick={()=> navigate('#')} >Sair</button>
                 </li>
                 <li>
-                    <button 
-                            onClick={()=> navigate('#')} 
+                    <button onClick={()=> navigate('#')} 
                             className="bg-white px-8 py-2 rounded-md text-secondary">Anunciar</button>
                 </li>
             </ul>

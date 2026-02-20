@@ -30,9 +30,7 @@ export default function CardProductAdmin() {
 
     return(
         <div>
-            <button 
-                    // onClick={()=>navigate("/products/details")} 
-                    className="shadow-md rounded-md p-6 flex flex-col justify-center items-center">
+            <button className="shadow-md rounded-md p-6 flex flex-col justify-center items-center">
 
                 <h1 className="text-center mt-2">Nome do Produto</h1>
                 
@@ -53,11 +51,9 @@ export default function CardProductAdmin() {
                     </div>
                 </div>
             </button>
-            <Modal
-                    isOpen={modalIsOpen}
+            <Modal  isOpen={modalIsOpen}
                     onRequestClose={()=>setIsOpen(false)}
-                    style={customStyles}
-                >
+                    style={customStyles}>
                 <h1 className="text-[20px] font-bold mb-2">Exluir produto</h1>
                 <p>
                     Deseja realemente excluír o produto?

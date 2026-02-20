@@ -17,8 +17,7 @@ export default function Header() {
                     <Link to="/quemsomos">Quem somos</Link>
                 </li>
                 <li>
-                    <button 
-                            onClick={()=> navigate('/login')} 
+                    <button onClick={()=> navigate('/login')} 
                             className="bg-secondary px-8 py-2 rounded-md hover:bg-orange-600">Entrar</button>
                 </li>
             </ul>
