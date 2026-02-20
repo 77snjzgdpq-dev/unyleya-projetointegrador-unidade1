@@ -33,6 +33,7 @@ export default function Register() {
 
   function createUser(values: RegisterForm) {
     console.log(values);
+    alert("Usuário criado com sucesso!");
   }
 
   return (

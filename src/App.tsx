@@ -15,6 +15,7 @@ import FaleConosco from "./pages/fale-conosco";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListRecentsProducts from "./pages/list-recents-products";
 import ListAllProducts from "./pages/list-all-products";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
 
@@ -79,8 +80,15 @@ export default function App() {
   ]);
 
   return (
-    <div className="min-h-screen">
-       <RouterProvider router={router} />
+    <div>
+      <div className="min-h-screen">
+        <RouterProvider router={router} />
+      </div>
+      <div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}/>
+        </div>
     </div>
   );
 }

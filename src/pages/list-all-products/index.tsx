@@ -6,6 +6,7 @@ import { getApiAllProducts, getApiAllProductsOrdered } from "./services";
 import type { Product } from "./types";
 import SearchBar from "../../components/search-bar";
 import { getApiProductsByName } from "../search-result/services";
+import { toast } from "react-toastify";
 
 export default function ListAllProducts() {
     const [allProducts, setAllProducts] = useState<Product[]>([]) ;
@@ -32,7 +33,7 @@ export default function ListAllProducts() {
             setAllProducts(response.data);
 
         } catch (error) {
-            alert("Houve um erro ao tentar buscar todos os produtos")
+            toast.error("Houve um erro ao tentar buscar todos os produtos")
         }
         setIsLoadingAllProducts(false);
     }
@@ -45,7 +46,7 @@ export default function ListAllProducts() {
             setAllProducts(response.data);
 
         } catch (error) {
-            alert("Houve um erro ao tentar buscar os produtos ordenados")
+            toast.error("Houve um erro ao tentar buscar os produtos ordenados")
         }
         setIsLoadingAllProducts(false);
     }

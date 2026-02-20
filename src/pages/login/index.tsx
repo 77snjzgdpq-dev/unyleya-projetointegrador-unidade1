@@ -25,6 +25,7 @@ export default function Login() {
 
   function logar(values: LoginForm) {
     console.log(values);
+    alert("login efetuado com sucesso!");
   }
 
   return (

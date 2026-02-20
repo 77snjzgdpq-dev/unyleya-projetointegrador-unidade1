@@ -4,6 +4,7 @@ import UserTemplate from "../../templates/user-template";
 import ListLoading from "../../components/list-loading";
 import type { Product } from "./types";
 import { getApiAllRecentesProducts } from "./services";
+import { toast } from "react-toastify";
 
 export default function ListRecentsProducts() {
     const [recentsAllProducts, setRecentsAllProducts] = useState<Product[]>([]) ;
@@ -16,7 +17,7 @@ export default function ListRecentsProducts() {
                setRecentsAllProducts(response.data);
     
             } catch (error) {
-                alert("Houve um erro ao tentar buscar produtos")
+                toast.error("Houve um erro ao tentar buscar produtos")
             }
             setIsLoadingRecentsProducts(false);
         }

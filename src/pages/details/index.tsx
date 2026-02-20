@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getApiDetailsProduct } from "./services";
 import type { Product } from "./types";
+import { toast } from "react-toastify";
 
 
 export default function Details () {
@@ -20,7 +21,7 @@ export default function Details () {
             console.log(response.data);
 
         } catch (error) {
-            alert("Houve um erro ao tentar buscar todos os produtos")
+            toast.error("Houve um erro ao tentar buscar todos os produtos")
         }
     }
       

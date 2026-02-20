@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "./types";
 import ListLoading from "../../components/list-loading";
 import SearchBar from "../../components/search-bar";
+import { toast } from "react-toastify";
 
 const itemsCategory = [
     {
@@ -71,7 +72,7 @@ export default function Home() {
            setRecentsProducts(response.data);
 
         } catch (error) {
-            alert("Houve um erro ao tentar buscar produtos")
+            toast.error("Houve um erro ao tentar buscar produtos")
         }
         setIsLoadingRecentsProducts(false);
     }
@@ -83,7 +84,7 @@ export default function Home() {
            setRecommendedProducts(response.data);
 
         } catch (error) {
-            alert("Houve um erro ao tentar buscar produtos recomendados")
+            toast.error("Houve um erro ao tentar buscar produtos recomendados")
         }
         setIsLoadingRecommendedProducts(false);
     }

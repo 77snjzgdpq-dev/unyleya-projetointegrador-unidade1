@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "./types";
 import ListLoading from "../../components/list-loading";
 import { getApiProductsByName } from "./services";
+import { toast } from "react-toastify";
 
 export default function SearchProducts() {
   const parms = useParams();
@@ -21,7 +22,7 @@ export default function SearchProducts() {
           setAllProducts(response.data);
 
       } catch (error) {
-          alert("Houve um erro ao tentar buscar todos os produtos")
+          toast.error("Houve um erro ao tentar buscar todos os produtos")
       }
       setIsLoadingProducts(false);
   }
