@@ -1,10 +1,9 @@
 import CardProduct from "../../components/card-product";
-import UserTemplate from "../../templates/user-template";
 import { LuGamepad2 } from "react-icons/lu";
 import { GiClothes } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
 import { FaTools } from "react-icons/fa";
-import { IoFastFoodOutline, IoSearch } from "react-icons/io5";
+import { IoFastFoodOutline } from "react-icons/io5";
 import { AiOutlineGift } from "react-icons/ai";
 import { AiOutlineSync } from "react-icons/ai";
 import { Carousel } from 'react-responsive-carousel';
