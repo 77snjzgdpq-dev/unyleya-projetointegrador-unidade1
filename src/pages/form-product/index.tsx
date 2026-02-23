@@ -14,9 +14,9 @@ const schemaValidation = Yup.object({
   name: Yup.string().required("Campo obrigatório"),
   manufacturer: Yup.string().required("Campo obrigatório"),
   category: Yup.string().required("Campo obrigatório"),
-  price: Yup.number().typeError("Informe um valor numérico").required("Campo obrigatório"),
-  url1: Yup.string().required("Campo obrigatório"),
-  url2: Yup.string().required("Campo obrigatório"),
+  price: Yup.number().positive("O preço deve ser maior que zero").typeError("Informe um valor numérico").required("Campo obrigatório"),
+  url1: Yup.string().url("URL inválida").required("Campo obrigatório"),
+  url2: Yup.string().url("URL inválida").required("Campo obrigatório"),
   description: Yup.string().required("Campo obrigatório"),
 });
 

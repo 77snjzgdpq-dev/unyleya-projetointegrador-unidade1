@@ -13,7 +13,7 @@ const schemaValidation = Yup.object().shape({
   email: Yup.string().email("E-mail inválido").required("Campo obrigatório"),
   phone: Yup.string().required("Campo obrigatório"),
   city: Yup.string().required("Campo obrigatório"),
-  state: Yup.string().required("Campo obrigatório"),
+  state: Yup.string().max(2, "Use a sigla do estado").required("Campo obrigatório"),
   password: Yup.string().min(4, "Mínimo 4 caracteres").required("Campo obrigatório"),
 });
 

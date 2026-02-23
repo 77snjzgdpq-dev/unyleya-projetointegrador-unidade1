@@ -3,12 +3,8 @@ import UserTemplate from "../../templates/user-template";
 import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"    
 import { toast } from "react-toastify";
+import type { ContactForm } from "./types";
 
-type ContactForm = {
-  name: string;
-  email: string;
-  message: string;
-};
 
 const schemaValidation = Yup.object().shape({
   name:  Yup.string().required("campo obrigatório"),
