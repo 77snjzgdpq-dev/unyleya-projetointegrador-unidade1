@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import UserTemplate from "../../templates/user-template";
 import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"    
+import { toast } from "react-toastify";
 
 type ContactForm = {
   name: string;
@@ -17,7 +18,7 @@ const schemaValidation = Yup.object().shape({
 
 function enviarMensagem(values: ContactForm) {
     console.log(values);
-    alert("Mensagem enviada com sucesso!");
+    toast.success("Mensagem enviada com sucesso!");
   }
 
 export default function FaleConosco() {

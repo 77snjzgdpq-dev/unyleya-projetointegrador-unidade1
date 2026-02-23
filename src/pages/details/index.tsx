@@ -1,11 +1,11 @@
 import UserTemplate from "../../templates/user-template";
-import carousel1 from "../../assets/carrosel1.png";
 import { Carousel } from "react-responsive-carousel";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getApiDetailsProduct } from "./services";
 import type { Product } from "./types";
 import { toast } from "react-toastify";
+import { formatPrice } from "../../utils/format-price";
 
 
 export default function Details () {
@@ -46,13 +46,13 @@ export default function Details () {
                 <div>
                     <div className="shadow-sm bg-white px-10 py-2">
                         <p>Informações do vendedor</p>
-                        <p>Jean Carlos Campos Kfouri</p>
-                        <p>São Paulo - SP</p>
-                        <p>E-mail: carloskfouri@hotmai.com</p>
-                        <p>11 9 9999-9999</p>
+                        <p>{product.user?.name || "-"}</p>
+                        <p>{product.user?.city} - {product.user?.state}</p>
+                        <p>E-mail: {product.user?.email}</p>
+                        <p>{product.user?.phone}</p>
                     </div>
                     <div className="shadow-sm bg-white px-10 py-2">
-                        <p className="text-[30px]">R$ {product.price}</p>
+                        <p className="text-[30px]">{formatPrice(product.price)}</p>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,13 @@
 
 import { useNavigate } from "react-router-dom"
-import img_product from "../../assets/product.png"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import Modal from 'react-modal';
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { removeApiProduct } from "./services";
+import type { CardProps } from "./types";
+import { getApiMyProducts } from "../../pages/user-products/services";
+import { useAuthSessionStore } from "../../hooks/use-auth-session";
 
 const customStyles = {
     
@@ -22,27 +26,39 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export default function CardProductAdmin() {
-
+export default function CardProductAdmin(props: CardProps) {
+    const { token } = useAuthSessionStore();
     const [modalIsOpen, setIsOpen] = useState(false);
-
     const navigate = useNavigate();
+
+    
+      async function removeProduct() {
+        try {
+            await removeApiProduct(props.id, token);
+            const response = await getApiMyProducts(token);
+            props.setMyProducts(response.data);
+            toast.success("Produdo excluído com sucesso");
+            setIsOpen(false);
+        } catch (error) {
+          toast.error("Erro ao remover o produto")
+        }
+      }
 
     return(
         <div>
             <button className="shadow-md rounded-md p-6 flex flex-col justify-center items-center">
 
-                <h1 className="text-center mt-2">Nome do Produto</h1>
+                <h1 className="text-center mt-2">{props.name}</h1>
                 
-                <img src={img_product} className="w-[100px] mt-2"/>
+                <img src={props.img} className="w-[100px] mt-2"/>
                 
                 <div className="flex items-end flex-row" >
                     <div>
-                        <p className="w-full mt-3">Amazon</p>
-                        <p className="w-full text-[25px]">R$ 799,99</p>
+                        <p className="w-full mt-3">{props.manufacturer}</p>
+                        <p className="w-full text-[25px]">R$ {props.price}</p>
                     </div>
                     <div className="ml-2 flex flex-col gap-1">
-                        <button onClick={() => navigate("/form-products")}>
+                        <button onClick={() => navigate(`/form-product-edit/${props.id}`)}>
                             <AiOutlineEdit size={25}/>
                         </button>
                         <button onClick={() => setIsOpen(true)}>
@@ -56,10 +72,11 @@ export default function CardProductAdmin() {
                     style={customStyles}>
                 <h1 className="text-[20px] font-bold mb-2">Exluir produto</h1>
                 <p>
-                    Deseja realemente excluír o produto?
+                    Deseja realmente excluír o produto?
                 </p>
                 <div className="flex justify-center gap-4 mt-4">
-                    <button className="bg-primary text-white px-8 py-2 rounded-lg">
+                    <button onClick={removeProduct} 
+                            className="bg-primary text-white px-8 py-2 rounded-lg">
                         Sim
                     </button>
                     <button 

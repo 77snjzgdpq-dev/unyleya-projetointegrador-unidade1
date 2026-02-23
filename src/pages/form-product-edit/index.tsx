@@ -5,10 +5,12 @@ import { useForm, Controller } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import type { FormProduct } from "./types";
-import { saveApiProduct } from "./services";
 import { useAuthSessionStore } from "../../hooks/use-auth-session";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { editApiProduct } from "./services";
+import { useNavigate, useParams } from "react-router-dom";
+import { getApiDetailsProduct } from "../details/services";
+import { useEffect, useState } from "react";
 
 const schemaValidation = Yup.object({
   name: Yup.string().required("Campo obrigatório"),
@@ -20,9 +22,40 @@ const schemaValidation = Yup.object({
   description: Yup.string().required("Campo obrigatório"),
 });
 
-export default function FormProduct() {
-  const navigate = useNavigate();
+export default function FormProductEdit() {
   const { token } = useAuthSessionStore();
+  const navigate = useNavigate();
+  const params = useParams();
+  const id = params?.id || "";
+
+  const [product, setProduct] = useState({
+      price: 0,
+      category: "",
+      description: "",
+      manufacturer: "",
+      name: "",
+      url1: "",
+      url2: "",
+  })
+  async function GetProductById(){
+    try {
+      const response = await getApiDetailsProduct(id);
+      const productResponse = response.data;
+      setProduct({price: productResponse.price, 
+                 category: productResponse.category, 
+                 description: productResponse.description, 
+                 manufacturer: productResponse.manufacturer, 
+                 name: productResponse.name, 
+                 url1: productResponse.url1, 
+                 url2: productResponse.url2});
+    } catch (error) {
+      toast.error("Houve um erro ao buscar o produto para edição");
+    }
+  }
+    
+  useEffect(() => {
+    GetProductById();
+  },[])
 
   const {
     register,
@@ -31,24 +64,24 @@ export default function FormProduct() {
     formState: { errors },
   } = useForm<FormProduct>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: product,
+    values: product,
   });
 
-  async function saveProduct(values: FormProduct) {
+  async function editProduct(values: FormProduct) {
     try {
       console.log("Produto:", values);
-
-      await saveApiProduct(values, token);
-
-      toast.success("Produto cadastrado com sucesso!");
+      await editApiProduct(values, token, id);
+      toast.success("Produto editado com sucesso!");
       navigate("/my-products");
     } catch (error) {
-      toast.error("Erro ao cadastrar o produto");
+      toast.error("Erro ao editar o produto");
     }
   }
 
   return (
     <AuthTemplate>
-      <form onSubmit={handleSubmit(saveProduct)}>
+      <form onSubmit={handleSubmit(editProduct)}>
 
         <h1 className="text-[25px] mb-4">Novo produto</h1>
 

@@ -3,6 +3,10 @@ import AuthTemplate from "../../templates/auth-template";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useAuthSessionStore } from "../../hooks/use-auth-session";
+import { toast } from "react-toastify";
+import { auth } from "./services";
+
 
 type LoginForm = {
   email: string;
@@ -16,6 +20,7 @@ const schemaValidation = Yup.object().shape({
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setToken } = useAuthSessionStore();
 
   const {
     register,
@@ -23,43 +28,48 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ resolver: yupResolver(schemaValidation) });
 
-  function logar(values: LoginForm) {
-    console.log(values);
-    alert("login efetuado com sucesso!");
+  async function logar(values: LoginForm) {
+    try {
+      const response = await auth(values.email, values.password);
+      setToken(response.data?.token);
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error("Não foi possível logar no sistema, tente mais tarde.")
+    }
   }
 
   return (
     <AuthTemplate>
-      <form className="bg-white self-center shadow-md p-6 rounded-lg w-[400px] space-y-3"
-            onSubmit={handleSubmit(logar)}>
+        <form className="bg-white self-center shadow-md p-6 rounded-lg w-[400px] space-y-3"
+              onSubmit={handleSubmit(logar)}>
 
-        <h1 className="text-center text-2xl font-bold">Unybay</h1>
-        <p className="text-center text-gray-600">Acesse sua conta</p>
+          <h1 className="text-center text-2xl font-bold">Unybay</h1>
+          <p className="text-center text-gray-600">Acesse sua conta</p>
 
-        <input  {...register("email")}
-                placeholder="E-mail"
-                className="w-full border rounded p-2"/>
-                
-        {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
+          <input  {...register("email")}
+                  placeholder="E-mail"
+                  className="w-full border rounded p-2"/>
+                  
+          {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
 
-        <input  {...register("password")}
-                type="password"
-                placeholder="Senha"
-                className="w-full border rounded p-2"/>
+          <input  {...register("password")}
+                  type="password"
+                  placeholder="Senha"
+                  className="w-full border rounded p-2"/>
 
-        {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
+          {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
 
-        <button type="submit"
-                className="bg-blue-600 w-full py-2 text-white rounded hover:bg-blue-700 transition">
-          Entrar
-        </button>
+          <button type="submit"
+                  className="bg-blue-600 w-full py-2 text-white rounded hover:bg-blue-700 transition">
+            Entrar
+          </button>
 
-        <button type="button"
-                onClick={() => navigate("/register")}
-                className="w-full text-blue-600 hover:underline">
-          Cadastre-se
-        </button>
-      </form>
+          <button type="button"
+                  onClick={() => navigate("/register")}
+                  className="w-full text-blue-600 hover:underline">
+            Cadastre-se
+          </button>
+        </form>
     </AuthTemplate>
   );
 }

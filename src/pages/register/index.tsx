@@ -3,15 +3,10 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import type { RegisterForm } from "./types";
+import { registerUser } from "./services";
+import { toast } from "react-toastify";
 
-type RegisterForm = {
-  name: string;
-  email: string;
-  phone: string;
-  city: string;
-  state: string;
-  password: string;
-};
 
 const schemaValidation = Yup.object().shape({
   name: Yup.string().required("Campo obrigatório"),
@@ -27,13 +22,20 @@ export default function Register() {
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>({ resolver: yupResolver(schemaValidation) });
 
-  function createUser(values: RegisterForm) {
-    console.log(values);
-    alert("Usuário criado com sucesso!");
+  async function createUser(values: RegisterForm) {
+    try {
+      const response = await registerUser(values);
+      reset();
+      console.log(response.data);
+      toast.success("Cadastro efetuado com sucesso")
+    } catch (error) {
+      toast.error("Houve um erro ao tentar cadastrar o produto, revise os campos e tente novamente.")
+    }
   }
 
   return (
@@ -75,7 +77,7 @@ export default function Register() {
         <button type="button"
                 onClick={() => navigate("/login")}
                 className="w-full text-blue-600 hover:underline">
-          Já tenho conta
+          Entrar
         </button>
       </form>
     </AuthTemplate>

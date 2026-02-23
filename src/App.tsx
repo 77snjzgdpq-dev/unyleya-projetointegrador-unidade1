@@ -9,13 +9,14 @@ import Register from "./pages/register";
 import SearchProducts from "./pages/search-result";
 import "./styles.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import UserProduct from "./pages/user-product";
+import UserProduct from "./pages/user-products";
 import FormProduct from "./pages/form-product";
 import FaleConosco from "./pages/fale-conosco";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListRecentsProducts from "./pages/list-recents-products";
 import ListAllProducts from "./pages/list-all-products";
 import { ToastContainer } from "react-toastify";
+import FormProductEdit from "./pages/form-product-edit";
 
 export default function App() {
 
@@ -65,8 +66,12 @@ export default function App() {
       element: <ListRecentsProducts />
     },
      {
-      path: "/form-products",
+      path: "/form-product",
       element: <FormProduct />
+    },
+    {
+      path: "/form-product-edit/:id",
+      element: <FormProductEdit />
     },
     {
       path: "/fale-conosco",

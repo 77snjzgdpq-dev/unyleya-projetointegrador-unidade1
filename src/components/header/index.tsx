@@ -18,7 +18,7 @@ export default function Header() {
                 </li>
                 <li>
                     <button onClick={()=> navigate('/login')} 
-                            className="bg-secondary px-8 py-2 rounded-md hover:bg-orange-600">Entrar</button>
+                            className="bg-orange-500 px-8 py-2 rounded-md hover:bg-orange-600">Entrar</button>
                 </li>
             </ul>
         </div>
