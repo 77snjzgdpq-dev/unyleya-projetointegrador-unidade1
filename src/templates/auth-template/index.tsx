@@ -13,14 +13,11 @@ export default function AuthTemplate(props: AuthTemplanteProps) {
                  <button onClick={() => navigate("/")}>
                     <h1 className="text-white text-[30px] font-bold">Unybay</h1>
                 </button>
-                
                 <div />
             </div>
-            
             <div className="flex flex-1 flex-col px-[10px] py-[20px] justify-center">
                 {props.children}
             </div>
-                
             <Footer />
         </div>
     )

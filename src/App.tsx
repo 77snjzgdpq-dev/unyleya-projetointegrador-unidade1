@@ -17,6 +17,8 @@ import ListRecentsProducts from "./pages/list-recents-products";
 import ListAllProducts from "./pages/list-all-products";
 import { ToastContainer } from "react-toastify";
 import FormProductEdit from "./pages/form-product-edit";
+import ForgotPassword from "./pages/forgot-password";
+import ResetPassword from "./pages/reset-password";
 
 export default function App() {
 
@@ -81,6 +83,14 @@ export default function App() {
       path: "/list-all-products",
       element: <ListAllProducts />
     },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />
+    },
+    {
+      path: "/reset-password/:token",
+      element: <ResetPassword />
+    },
     
   ]);
 
@@ -90,9 +100,8 @@ export default function App() {
         <RouterProvider router={router} />
       </div>
       <div>
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}/>
+        <ToastContainer position="top-right"
+                        autoClose={3000}/>
         </div>
     </div>
   );

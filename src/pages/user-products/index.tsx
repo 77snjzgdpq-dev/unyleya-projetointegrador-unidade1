@@ -54,12 +54,10 @@ export default function UserProducts() {
                             price={product.price} 
                             manufacturer={product.manufacturer}  
                             img={product.url1}
-                            setMyProducts = {setMyProducts}
-                            />
+                            setMyProducts = {setMyProducts}/>
           ))
         }
       </div>
-
       <p className="text-right mt-4 text-gray-600">
         Total: {myProducts.length} itens
       </p>

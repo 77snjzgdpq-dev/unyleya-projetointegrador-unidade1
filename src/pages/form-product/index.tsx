@@ -9,12 +9,17 @@ import { saveApiProduct } from "./services";
 import { useAuthSessionStore } from "../../hooks/use-auth-session";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { NumericFormat } from "react-number-format";
+import AutoCompleteSelect from "../../components/auto-complete/";
 
 const schemaValidation = Yup.object({
   name: Yup.string().required("Campo obrigatório"),
   manufacturer: Yup.string().required("Campo obrigatório"),
   category: Yup.string().required("Campo obrigatório"),
-  price: Yup.number().positive("O preço deve ser maior que zero").typeError("Informe um valor numérico").required("Campo obrigatório"),
+  price: Yup.number()
+    .positive("O preço deve ser maior que zero")
+    .typeError("Informe um valor numérico")
+    .required("Campo obrigatório"),
   url1: Yup.string().url("URL inválida").required("Campo obrigatório"),
   url2: Yup.string().url("URL inválida").required("Campo obrigatório"),
   description: Yup.string().required("Campo obrigatório"),
@@ -24,6 +29,16 @@ export default function FormProduct() {
   const navigate = useNavigate();
   const { token } = useAuthSessionStore();
 
+  const categoryOptions = [
+    { label: "Jogos", value: "jogos" },
+    { label: "Roupas", value: "roupas" },
+    { label: "Veículos", value: "veiculos" },
+    { label: "Ferramentas", value: "ferramentas" },
+    { label: "Comidas", value: "comidas" },
+    { label: "Presentes", value: "presentes" },
+    { label: "Outros", value: "outros" },
+  ];
+
   const {
     register,
     handleSubmit,
@@ -31,6 +46,11 @@ export default function FormProduct() {
     formState: { errors },
   } = useForm<FormProduct>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: {
+      category: "",
+      price: undefined,
+      description: "",
+    },
   });
 
   async function saveProduct(values: FormProduct) {
@@ -48,7 +68,7 @@ export default function FormProduct() {
 
   return (
     <AuthTemplate>
-      <form onSubmit={handleSubmit(saveProduct)}>
+      <form onSubmit={handleSubmit(saveProduct)} className="space-y-4">
 
         <h1 className="text-[25px] mb-4">Novo produto</h1>
 
@@ -59,7 +79,9 @@ export default function FormProduct() {
               className="rounded-md h-[40px] p-2 w-full border-2"
               placeholder="Digite o nome"
             />
-            {errors.name && <span className="text-red-700">{errors.name.message}</span>}
+            {errors.name && (
+              <span className="text-red-700">{errors.name.message}</span>
+            )}
           </div>
 
           <div className="flex-1">
@@ -76,28 +98,37 @@ export default function FormProduct() {
 
         <div className="flex gap-2 mt-2">
           <div className="flex-1">
-            <select
-              {...register("category")}
-              defaultValue=""
-              className="rounded-md h-[40px] p-2 w-full border-2"
-            >
-              <option disabled value="">
-                Selecione uma opção
-              </option>
-              <option value="Jogos">Jogos</option>
-              <option value="Roupas">Roupas</option>
-              <option value="Veiculos">Veículos</option>
-            </select>
+            <AutoCompleteSelect
+              name="category"
+              control={control}
+              options={categoryOptions}
+              placeholder="Selecione a categoria"
+            />
             {errors.category && (
               <span className="text-red-700">{errors.category.message}</span>
             )}
           </div>
 
           <div className="flex-1">
-            <input
-              {...register("price")}
-              className="rounded-md h-[40px] p-2 w-full border-2"
-              placeholder="Digite o preço"
+            <Controller
+              name="price"
+              control={control}
+              render={({ field }) => (
+                <NumericFormat
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  prefix="R$ "
+                  decimalScale={2}
+                  fixedDecimalScale
+                  allowNegative={false}
+                  placeholder="Digite o preço"
+                  className="rounded-md h-[40px] p-2 w-full border-2"
+                  value={field.value ?? ""}
+                  onValueChange={(values) => {
+                    field.onChange(values.floatValue);
+                  }}
+                />
+              )}
             />
             {errors.price && (
               <span className="text-red-700">{errors.price.message}</span>
@@ -112,7 +143,9 @@ export default function FormProduct() {
               className="rounded-md h-[40px] p-2 w-full border-2"
               placeholder="Digite a primeira URL"
             />
-            {errors.url1 && <span className="text-red-700">{errors.url1.message}</span>}
+            {errors.url1 && (
+              <span className="text-red-700">{errors.url1.message}</span>
+            )}
           </div>
 
           <div className="flex-1">
@@ -121,7 +154,9 @@ export default function FormProduct() {
               className="rounded-md h-[40px] p-2 w-full border-2"
               placeholder="Digite a segunda URL"
             />
-            {errors.url2 && <span className="text-red-700">{errors.url2.message}</span>}
+            {errors.url2 && (
+              <span className="text-red-700">{errors.url2.message}</span>
+            )}
           </div>
         </div>
 
@@ -129,7 +164,6 @@ export default function FormProduct() {
           <Controller
             name="description"
             control={control}
-            defaultValue=""
             render={({ field }) => (
               <ReactQuill
                 theme="snow"

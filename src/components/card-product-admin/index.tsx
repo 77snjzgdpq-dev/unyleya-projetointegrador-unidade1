@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import Modal from 'react-modal';
@@ -30,9 +29,8 @@ export default function CardProductAdmin(props: CardProps) {
     const { token } = useAuthSessionStore();
     const [modalIsOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
-
     
-      async function removeProduct() {
+    async function removeProduct() {
         try {
             await removeApiProduct(props.id, token);
             const response = await getApiMyProducts(token);
@@ -40,9 +38,9 @@ export default function CardProductAdmin(props: CardProps) {
             toast.success("Produdo excluído com sucesso");
             setIsOpen(false);
         } catch (error) {
-          toast.error("Erro ao remover o produto")
+            toast.error("Erro ao remover o produto")
         }
-      }
+    }
 
     return(
         <div>

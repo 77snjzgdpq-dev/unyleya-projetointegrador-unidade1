@@ -16,16 +16,12 @@ export default function UserTemplate({ title, children }: UserTemplateProps) {
   
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-
       <Header />
-
       <main className="flex-1 px-6 py-6 max-w-7xl mx-auto w-full">
         <h1 className="text-2xl font-bold mb-4">{title}</h1>
         {children}
       </main>
-
       <Footer />
-
     </div>
   );
 }

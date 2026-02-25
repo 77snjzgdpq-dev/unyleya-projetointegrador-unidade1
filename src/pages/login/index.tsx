@@ -6,12 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthSessionStore } from "../../hooks/use-auth-session";
 import { toast } from "react-toastify";
 import { auth } from "./services";
-
-
-type LoginForm = {
-  email: string;
-  password: string;
-};
+import type { LoginForm } from "./types";
 
 const schemaValidation = Yup.object().shape({
   email: Yup.string().email("Digite um e-mail válido").required("Campo obrigatório"),
@@ -63,12 +58,19 @@ export default function Login() {
                   className="bg-blue-600 w-full py-2 text-white rounded hover:bg-blue-700 transition">
             Entrar
           </button>
+          
+          <button type="button"
+                  onClick={() => navigate("/forgot-password")}
+                  className="text-blue-600 hover:underline">
+            Esqueci minha senha
+          </button>
 
           <button type="button"
                   onClick={() => navigate("/register")}
                   className="w-full text-blue-600 hover:underline">
             Cadastre-se
           </button>
+          
         </form>
     </AuthTemplate>
   );

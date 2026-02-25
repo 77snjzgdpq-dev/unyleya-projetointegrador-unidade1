@@ -23,7 +23,6 @@ export default function AdminTemplate(props: AdminTemplatProps) {
            <div className="flex flex-1 flex-col px-[10px] py-[20px] justify-center">
                 {props.children}
             </div>
-                
             <Footer />
         </div>
     )
