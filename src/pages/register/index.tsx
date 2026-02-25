@@ -66,7 +66,7 @@ export default function Register() {
           control={control}
           render={({ field }) => (
             <InputMask
-              mask="(99) 9 9999-9999"
+              mask="(99) 9999-9999"
               value={field.value || ""}
               onChange={field.onChange}
               onBlur={field.onBlur}
