@@ -7,30 +7,30 @@ export default function AutoCompleteSelect({
   name,
   control,
   options,
-  placeholder,
+  placeholder = "Selecione uma categoria",
 }: AutoCompleteSelectProps) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field }) => {
-        const selectedOption: Option | undefined = options.find(
+        const selectedOption: Option | null = options.find(
           (opt) => String(opt.value) === String(field.value)
-        );
+        ) || null;
 
         return (
           <Autocomplete
             options={options}
-            value={selectedOption || options[0]}
-            onChange={(_, newValue: Option) => {
-              field.onChange(newValue.value); 
+            value={selectedOption}
+            onChange={(_, newValue: Option | null) => {
+              field.onChange(newValue ? newValue.value : null); 
             }}
             getOptionLabel={(option: Option) => option.label}
             isOptionEqualToValue={(option: Option, value: Option) =>
               String(option.value) === String(value.value)
             }
             openOnFocus
-            disableClearable
+            disableClearable={false}
             renderInput={(params) => (
               <TextField
                 {...params}
