@@ -10,37 +10,39 @@ export default function AutoCompleteSelect({
   placeholder,
 }: AutoCompleteSelectProps) {
   return (
-    <Controller name={name}
-                control={control}
-                render={({ field }) => {
-          const selectedOption: Option | null =
-            options.find(
-              (opt) => String(opt.value) === String(field.value)
-            ) || null;
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => {
+        // Busca o objeto Option correspondente ao value do formulário
+        const selectedOption: Option | null =
+          options.find((opt) => String(opt.value) === String(field.value)) || null;
 
-          return (
-            <Autocomplete options={options}
-                value={selectedOption}
-                onChange={(_, newValue) => {
-                  field.onChange(newValue ? newValue.value : "");
-                }}
-                getOptionLabel={(option) => option.label}
-                isOptionEqualToValue={(option, value) =>
-                  String(option.value) === String(value.value)
-                }
-                openOnFocus
-                disableClearable
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder={placeholder}
-                    size="small"
-                    fullWidth
-                  />
-                )}
-            />
-          );
-        }}
+        return (
+          <Autocomplete
+            options={options}
+            value={selectedOption}
+            onChange={(_, newValue: Option | null) => {
+              // Atualiza o campo com o valor real do Option, ou string vazia se null
+              field.onChange(newValue ? newValue.value : "");
+            }}
+            getOptionLabel={(option: Option) => option.label}
+            isOptionEqualToValue={(option: Option, value: Option) =>
+              String(option.value) === String(value.value)
+            }
+            openOnFocus
+            disableClearable
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder={placeholder}
+                size="small"
+                fullWidth
+              />
+            )}
+          />
+        );
+      }}
     />
   );
 }
