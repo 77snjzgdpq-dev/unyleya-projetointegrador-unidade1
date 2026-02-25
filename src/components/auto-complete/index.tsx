@@ -18,7 +18,7 @@ export default function AutoCompleteSelect({
         return (
           <Autocomplete
             options={options}
-            value={selectedOption}
+            value={selectedOption} // @ts-ignore
             onChange={(_, newValue: Option | null) => {
               field.onChange(newValue ? newValue.value : "");
             }}
