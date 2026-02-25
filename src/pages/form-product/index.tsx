@@ -29,14 +29,14 @@ export default function FormProduct() {
   const navigate = useNavigate();
   const { token } = useAuthSessionStore();
 
-  const categoryOptions = [
-    { label: "Jogos", value: "jogos" },
-    { label: "Roupas", value: "roupas" },
-    { label: "Veículos", value: "veiculos" },
-    { label: "Ferramentas", value: "ferramentas" },
-    { label: "Comidas", value: "comidas" },
-    { label: "Presentes", value: "presentes" },
-    { label: "Outros", value: "outros" },
+ const categoryOptions = [
+    { label: "Jogos", value: "Jogos" },
+    { label: "Roupas", value: "Roupas" },
+    { label: "Veículos", value: "Veiculos" },
+    { label: "Ferramentas", value: "Ferramentas" },
+    { label: "Comidas", value: "Comidas" },
+    { label: "Presentes", value: "Presentes" },
+    { label: "Outros", value: "Outros" },
   ];
 
   const {
