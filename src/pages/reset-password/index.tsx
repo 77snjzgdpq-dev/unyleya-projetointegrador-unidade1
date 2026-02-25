@@ -27,7 +27,7 @@ export default function ResetPassword() {
 
   const email = validateResetToken(token ?? "");
 
-  async function handleResetPassword(values: ResetPasswordForm) {
+  async function handleResetPassword(_values: ResetPasswordForm) {
     if (!email) {
       toast.error("Link inválido ou expirado");
       return;
