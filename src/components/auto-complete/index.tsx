@@ -14,13 +14,16 @@ export default function AutoCompleteSelect({
       name={name}
       control={control}
       render={({ field }) => {
-        const selectedOption: Option | null = options.find((opt) => String(opt.value) === String(field.value)) || null;
+        const selectedOption: Option | undefined = options.find(
+          (opt) => String(opt.value) === String(field.value)
+        );
+
         return (
           <Autocomplete
             options={options}
-            value={selectedOption} // @ts-ignore
-            onChange={(_, newValue: Option | null) => {
-              field.onChange(newValue ? newValue.value : "");
+            value={selectedOption || options[0]}
+            onChange={(_, newValue: Option) => {
+              field.onChange(newValue.value); 
             }}
             getOptionLabel={(option: Option) => option.label}
             isOptionEqualToValue={(option: Option, value: Option) =>
